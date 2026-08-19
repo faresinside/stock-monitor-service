@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PortaSplit Monitor - Surveillance Midea</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="glass-card header">
+            <div class="brand">
+                <div class="icon-pulse">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07l14.14-14.14"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1>PortaSplit Monitor</h1>
+                    <p class="subtitle">Surveillance en direct de la disponibilité Midea PortaSplit</p>
+                </div>
+            </div>
+            <div class="actions">
+                <button id="btn-refresh" class="btn btn-primary">
+                    <span class="btn-icon">🔄</span> Vérifier maintenant
+                </button>
+                <button id="btn-test-notif" class="btn btn-secondary">
+                    <span class="btn-icon">🔔</span> Test Notification Discord
+                </button>
+            </div>
+        </header>
+
+        <!-- Configuration Summary Banner -->
+        <section class="glass-card config-banner">
+            <div class="config-item">
+                <span class="label">Fréquence :</span>
+                <span class="value">Toutes les {{ check_interval_seconds }} sec</span>
+            </div>
+            <div class="config-item">
+                <span class="label">Secteur IDF :</span>
+                <span class="value badge-highlight">{{ preferred_city }} ({{ postal_code }})</span>
+            </div>
+            <div class="config-item">
+                <span class="label">Alarme :</span>
+                <div class="channels">
+                    {% if has_discord %}
+                    <span class="tag tag-active">🎮 Discord Webhook Actif</span>
+                    {% else %}
+                    <span class="tag tag-disabled">🎮 Discord Non configuré</span>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Stores Grid -->
+        <h2 class="section-title">État des Enseignes & Distributeurs</h2>
+        <div id="stores-grid" class="stores-grid">
+            <div class="loading-spinner">Chargement des états...</div>
+        </div>
+
+        <!-- Activity Logs -->
+        <h2 class="section-title">Journal d'activité récent</h2>
+        <section class="glass-card logs-card">
+            <div id="logs-list" class="logs-list">
+                <div class="log-item">Chargement des journaux...</div>
+            </div>
+        </section>
+    </div>
+
+    <script src="static/app.js"></script>
+</body>
+</html>

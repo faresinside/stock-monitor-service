@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  portasplit-monitor:
+    build: .
+    container_name: portasplit-monitor
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8005:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./.env:/app/.env
