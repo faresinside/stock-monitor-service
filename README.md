@@ -15,7 +15,7 @@ Système automatisé de surveillance de la disponibilité du climatiseur mobile 
   - **Leroy Merlin**
 - 🎮 **Alertes instantanées via Discord Webhook** (Ou Ntfy / Telegram)
 - 📍 **Filtrage régional Île-de-France (IDF)** pour le retrait magasin local.
-- 📊 **Dashboard Web Glassmorphism** accessible en HTTPS via Traefik (`https://portasplit.faresinside.fr/`).
+- 📊 **Dashboard Web Glassmorphism** accessible en HTTPS via Traefik (reverse-proxy avec certificat auto-signé).
 
 ---
 
@@ -32,7 +32,7 @@ Système automatisé de surveillance de la disponibilité du climatiseur mobile 
 ### 2. Ajouter l'URL dans le fichier `.env` sur votre Raspberry Pi
 Connectez-vous à votre Raspberry Pi via SSH :
 ```bash
-ssh pi-server@raspberrypi "nano ~/portasplit/.env"
+ssh pi@<ip-du-raspberry> "nano ~/portasplit/.env"
 ```
 
 Remplacez la ligne `DISCORD_WEBHOOK_URL=` par l'URL copiée :
@@ -44,10 +44,10 @@ Sauvegardez avec `Ctrl+O` puis appuyez sur `Entrée`, puis quittez avec `Ctrl+X`
 ### 3. Appliquer la modification
 Redémarrez le container sur le Raspberry Pi :
 ```bash
-ssh pi-server@raspberrypi "cd ~/portasplit && docker compose restart"
+ssh pi@<ip-du-raspberry> "cd ~/portasplit && docker compose restart"
 ```
 
-Vous pouvez maintenant tester l'envoi de la notification depuis le Dashboard Web ([https://portasplit.faresinside.fr/](https://portasplit.faresinside.fr/)) en cliquant sur le bouton **"Test Notification Discord"** !
+Vous pouvez maintenant tester l'envoi de la notification depuis le Dashboard Web en cliquant sur le bouton **"Test Notification Discord"** !
 
 ---
 
@@ -62,5 +62,5 @@ docker compose up -d --build
 
 ## 🌐 Accès au Dashboard Web
 
-- **URL Traefik HTTPS :** [https://portasplit.faresinside.fr/](https://portasplit.faresinside.fr/)
-- **Accès direct IP local :** `http://192.168.1.9:8005`
+- **URL Traefik HTTPS :** votre sous-domaine configuré (ex: `https://portasplit.votredomaine.fr/`)
+- **Accès direct IP locale :** `http://<ip-locale-du-pi>:8005`
